@@ -57,12 +57,6 @@ section {
   justify-content: center;
 }
 
-.card {
-  width: 250px;
-  height: 300px;
-  perspective: 1000px;
-}
-
 .card-inner {
   position: relative;
   width: 100%;
@@ -108,3 +102,31 @@ footer {
   padding: 1rem;
   background: rgba(30, 41, 59, 0.9);
 }
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem;
+  gap: 1rem;
+  scroll-behavior: smooth;
+}
+
+.card {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: 250px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+.carousel {
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+
