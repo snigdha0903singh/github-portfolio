@@ -1,1 +1,2 @@
-console.log("Welcome to Snigdha's Portfolio!");
+// Optional: Can be used for interactive effects later
+console.log("Portfolio loaded ✨");
