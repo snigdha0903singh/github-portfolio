@@ -3,56 +3,73 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Snigdha Singh – Portfolio</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Snigdha's Portfolio</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: black;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+  </style>
 </head>
 <body>
-  <div id="background"></div>
-
-  <header>
-    <h1>Snigdha Singh</h1>
-    <p>AI • DevOps • Kafka • GitHubOps</p>
-    <div class="links">
-      <a href="https://github.com/snigdha0903singh" target="_blank">GitHub</a>
-      <a href="resume.pdf" download>Resume</a>
-      <a href="https://in.linkedin.com/" download>LinkedIn</a>
-    </div>
-  </header>
-
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I’m an AI + DevOps enthusiast passionate about building intelligent pipelines with LLMs, Kafka, and GitHub automation. I love combining backend intelligence with smooth frontend visuals.
-    </p>
-  </section>
-
-<section id="projects">
-  <h2>Projects</h2>
-  <div class="carousel">
-    <div class="card">
-      <div class="card-inner">
-        <div class="card-front">
-          <img src="https://via.placeholder.com/200x120" alt="Project 1" />
-          <h3>AI PR Reviewer</h3>
-        </div>
-        <div class="card-back">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac sapien et justo sodales laoreet.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-inner">
-        <div class="card-front">
-          <img src="https://via.placeholder.com/200x120" alt="Project 2" />
-          <h3>ABC EYKS</h3>
-        </div>
-        <div class="card-back">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac sapien et justo sodales laoreet.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Add more cards here -->
+  <div class="content">
+    <h1>✨ Welcome to Snigdha's Universe ✨</h1>
   </div>
-</section>
+
+  <script>
+    const numberOfStars = 100;
+
+    for (let i = 0; i < numberOfStars; i++) {
+      const star = document.createElement("div");
+      star.classList.add("star");
+      
+      const size = Math.random() * 2 + 1;
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      const duration = Math.random() * 5 + 3;
+      const delay = Math.random() * 5;
+
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.top = `${y}px`;
+      star.style.left = `${x}px`;
+      star.style.animationDuration = `${duration}s`;
+      star.style.animationDelay = `${delay}s`;
+
+      document.body.appendChild(star);
+    }
+  </script>
+</body>
+</html>
