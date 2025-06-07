@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Snigdha's Portfolio</title>
+  <meta charset="UTF-8">
+  <title>Modular Line Background</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
+      background: #0d1117;
       overflow: hidden;
-      height: 100%;
-      background: black;
-      font-family: Arial, sans-serif;
+      height: 100vh;
+      font-family: sans-serif;
       color: white;
     }
 
-    .star {
+    canvas {
       position: absolute;
-      background: white;
-      border-radius: 50%;
-      opacity: 0;
-      animation: twinkle infinite;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
 
     .content {
@@ -40,36 +33,75 @@
 
     h1 {
       font-size: 3rem;
+      color: #fff;
     }
   </style>
 </head>
 <body>
+  <canvas id="background"></canvas>
+
   <div class="content">
-    <h1>✨ Welcome to Snigdha's Universe ✨</h1>
+    <h1>👩‍💻 Snigdha's Modular World</h1>
   </div>
 
   <script>
-    const numberOfStars = 100;
+    const canvas = document.getElementById("background");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    for (let i = 0; i < numberOfStars; i++) {
-      const star = document.createElement("div");
-      star.classList.add("star");
-      
-      const size = Math.random() * 2 + 1;
-      const x = Math.random() * window.innerWidth;
-      const y = Math.random() * window.innerHeight;
-      const duration = Math.random() * 5 + 3;
-      const delay = Math.random() * 5;
+    let points = [];
+    const POINTS_COUNT = 100;
+    const MAX_DIST = 120;
 
-      star.style.width = `${size}px`;
-      star.style.height = `${size}px`;
-      star.style.top = `${y}px`;
-      star.style.left = `${x}px`;
-      star.style.animationDuration = `${duration}s`;
-      star.style.animationDelay = `${delay}s`;
-
-      document.body.appendChild(star);
+    for (let i = 0; i < POINTS_COUNT; i++) {
+      points.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5
+      });
     }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < POINTS_COUNT; i++) {
+        const p = points[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+      }
+
+      // Draw lines between close points
+      for (let i = 0; i < POINTS_COUNT; i++) {
+        for (let j = i + 1; j < POINTS_COUNT; j++) {
+          const dx = points[i].x - points[j].x;
+          const dy = points[i].y - points[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < MAX_DIST) {
+            ctx.beginPath();
+            ctx.moveTo(points[i].x, points[i].y);
+            ctx.lineTo(points[j].x, points[j].y);
+            ctx.strokeStyle = `rgba(255,255,255,${1 - dist / MAX_DIST})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
   </script>
 </body>
 </html>
